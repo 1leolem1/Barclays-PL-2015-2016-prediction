@@ -1,31 +1,16 @@
-import requests as r
+from statsbombpy import sb
 import pandas as pd
+from mplsoccer import VerticalPitch, Pitch
+from matplotlib.colors import LinearSegmentedColormap
+import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
+import seaborn as sns
 
-API_KEY = '9d27c091e43d4110b0d905be9bb3c2b6'
-headers = {'X-Auth-Token': API_KEY}
-l1_url = 'https://api.football-data.org/v2/competitions/2015/matches'
+season_id = 27
+comp = "Premier League"
 
-response = r.get(l1_url, headers=headers)
-data = response.json()
-matches = pd.DataFrame(data["matches"])
+free_comps = sb.competitions()
+season = free_comps[(free_comps["competition_name"] == "Premier League") & (
+    free_comps["season_id"] == season_id)]
 
-# Step 1: Find the Latest Season
-season_ids = [match["season"]["id"] for match in data["matches"]]
-latest_season_id = max(season_ids)
-
-# Step 2: Filter the Matches for the Latest Season
-latest_season_matches = matches[matches['season'].apply(
-    lambda x: x['id']) == latest_season_id]
-
-home_list = []
-away_list = []
-
-# Iterate through filtered matches
-for index, match in latest_season_matches.iterrows():
-    finished = match["status"] == "FINISHED"
-    if finished:
-        home = match["score"]["fullTime"]["homeTeam"]
-        away = match["score"]["fullTime"]["awayTeam"]
-        print(f"{home} - {away}")
-        home_list.append(home)
-        away_list.append(away)
+print(season)
