@@ -1,4 +1,6 @@
-**PROJECT IN PROGRESS :))**
+**_PROJECT IN PROGRESS :))_**
+
+
 In this project, I want to predict the results of football games using the free data provided by Statsbomb. 
 
 Hudl Statsbomb provides the full 2015-16 Premier League season for free on its API for EDA and academic purposes (I wish I could have a full season of Ligue 1 instead...)
